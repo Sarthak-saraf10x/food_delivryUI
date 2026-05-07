@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="landing-page">
       {/* TopAppBar */}
@@ -21,7 +24,7 @@ const LandingPage = () => {
           <button className="cart-btn">
             <span className="material-symbols-outlined">shopping_cart</span>
           </button>
-          <button className="btn-primary">
+          <button className="btn-primary" onClick={() => navigate('/login')}>
             Login
           </button>
         </div>

@@ -3,7 +3,11 @@ import LandingPage from './LandingPage';
 import ExploreRestaurants from './ExploreRestaurants';
 import Menu from './Menu';
 import ReviewOrder from './ReviewOrder';
+import Login from './Login';
+import Register from './Register';
 import './index.css';
+
+import Dashboard from './Dashboard';
 
 // A simple navigation wrapper for development
 const NavWrapper = ({ children }) => (
@@ -12,7 +16,9 @@ const NavWrapper = ({ children }) => (
       <Link to="/" style={{ color: 'white' }}>Home</Link>
       <Link to="/explore" style={{ color: 'white' }}>Explore</Link>
       <Link to="/menu" style={{ color: 'white' }}>Menu</Link>
-      <Link to="/review" style={{ color: 'white' }}>Review Order</Link>
+      <Link to="/login" style={{ color: 'white' }}>Login</Link>
+      <Link to="/register" style={{ color: 'white' }}>Register</Link>
+      <Link to="/dashboard" style={{ color: 'white' }}>Dashboard</Link>
     </div>
     {children}
   </>
@@ -27,8 +33,12 @@ function App() {
           <Route path="/explore" element={<ExploreRestaurants />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/review" element={<ReviewOrder />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </NavWrapper>
+
     </BrowserRouter>
   );
 }
