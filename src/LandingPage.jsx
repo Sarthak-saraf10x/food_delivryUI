@@ -11,7 +11,7 @@ const LandingPage = () => {
       <nav className="navbar">
         <div className="logo-container">
           <span className="material-symbols-outlined logo-icon">cloud</span>
-          <span className="logo-text">CloudEats</span>
+          <span className="logo-text">Neeta's Kitchen</span>
         </div>
         
         <div className="nav-links">
@@ -176,7 +176,7 @@ const LandingPage = () => {
           <div className="footer-brand">
             <div className="logo-container" style={{ cursor: 'default', transform: 'none' }}>
               <span className="material-symbols-outlined logo-icon">cloud</span>
-              <span className="logo-text">CloudEats</span>
+              <span className="logo-text">Neeta's Kitchen</span>
             </div>
             <p className="footer-desc">
               Redefining the horizon of food delivery. Ethereal taste, delivered at terminal velocity with zero friction.
@@ -209,7 +209,7 @@ const LandingPage = () => {
           </div>
         </div>
         <div className="footer-bottom">
-          <p className="footer-copyright">© 2024 CloudEats Antigravity Dining. All rights reserved.</p>
+          <p className="footer-copyright">© 2024 Neeta's Kitchen Antigravity Dining. All rights reserved.</p>
         </div>
       </footer>
     </div>

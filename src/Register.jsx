@@ -38,7 +38,7 @@ const Register = () => {
       <div className="register-glass-container glass-panel">
         <div className="register-header">
           <span className="material-symbols-outlined register-logo-icon">person_add</span>
-          <h2 className="register-title">Join CloudEats</h2>
+          <h2 className="register-title">Join Neeta's Kitchen</h2>
           <p className="register-subtitle">Select your profile type to begin</p>
         </div>
         

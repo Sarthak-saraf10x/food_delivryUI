@@ -45,7 +45,7 @@ const Login = () => {
       <div className="login-glass-container glass-panel">
         <div className="login-header">
           <span className="material-symbols-outlined login-logo-icon">cloud</span>
-          <h2 className="login-title">CloudEats Login</h2>
+          <h2 className="login-title">Neeta's Kitchen Login</h2>
           <p className="login-subtitle">Select your portal to continue</p>
         </div>
         
