@@ -17,6 +17,9 @@ import AdminRegister from './admin/AdminRegister';
 import AdminDashboardLayout from './admin/AdminDashboardLayout';
 import AdminOverview from './admin/AdminOverview';
 
+// Driver pages
+import DriverDashboard from './driver/DriverDashboard';
+
 // Route guard
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -60,6 +63,19 @@ function App() {
           <Route path="analytics" element={<AdminOverview />} />
           <Route path="reviews"  element={<AdminOverview />} />
         </Route>
+
+        {/* ── Protected driver dashboard (delivery_partner only) ── */}
+        <Route
+          path="/driver/dashboard"
+          element={
+            <ProtectedRoute
+              allowedRoles={['delivery_partner']}
+              redirectTo="/login"
+            >
+              <DriverDashboard />
+            </ProtectedRoute>
+          }
+        />
 
         {/* ── Legacy /dashboard redirect ── */}
         <Route path="/dashboard" element={<Navigate to="/admin/dashboard" replace />} />
