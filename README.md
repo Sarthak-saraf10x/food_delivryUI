@@ -127,3 +127,4 @@ To run this project locally, you will need to start both the backend server and 
 - `npm run build`: Bundles the React application for production into the `dist` folder.
 - `npm run lint`: Runs ESLint to identify and report on patterns in the JavaScript/React code.
 - `npm run preview`: Bootstraps a local static web server to serve the production build (`dist` folder) for previewing.
+git config pull.rebase false
