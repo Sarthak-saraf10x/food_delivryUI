@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="landing-page">
@@ -36,11 +43,20 @@ const LandingPage = () => {
         {/* Hero Section */}
         <section className="hero-section">
           {/* Background Elements */}
-          <div className="hero-bg-gradient"></div>
-          <div className="hero-blur-circle-1"></div>
-          <div className="hero-blur-circle-2"></div>
+          <div 
+            className="hero-bg-gradient" 
+            style={{ transform: `translateY(${scrollY * 0.2}px)` }}
+          ></div>
+          <div 
+            className="hero-blur-circle-1" 
+            style={{ transform: `translateY(${scrollY * 0.4}px)` }}
+          ></div>
+          <div 
+            className="hero-blur-circle-2" 
+            style={{ transform: `translateY(${scrollY * 0.6}px)` }}
+          ></div>
           
-          <div className="hero-content">
+          <div className="hero-content" style={{ transform: `translateY(${scrollY * 0.1}px)` }}>
             <h1 className="hero-title">
               Taste the <span className="hero-title-italic">Heights</span>
             </h1>
