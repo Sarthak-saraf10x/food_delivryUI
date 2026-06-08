@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
 import './Login.css';
 
 const Login = () => {
-  const [role, setRole] = useState('customer');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, role }),
+        body: JSON.stringify({ email, password, role: 'customer' }),
       });
       const data = await response.json();
 
@@ -24,13 +24,7 @@ const Login = () => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.data.user));
 
-        if (role === 'customer') {
-          navigate('/explore');
-        } else if (role === 'restaurant_owner') {
-          navigate('/dashboard');
-        } else if (role === 'delivery_partner') {
-          navigate('/dashboard');
-        }
+        navigate('/explore');
       } else {
         alert(data.message || 'Login failed');
       }
@@ -40,40 +34,41 @@ const Login = () => {
     }
   };
 
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const response = await fetch('http://localhost:8000/api/auth/google', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: credentialResponse.credential,
+          role: 'customer'
+        }),
+      });
+      
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.data.user));
+        navigate('/explore');
+      } else {
+        alert(data.message || 'Google Login failed');
+      }
+    } catch (error) {
+      console.error('Google login error:', error);
+      alert('An error occurred during Google login.');
+    }
+  };
+
   return (
     <div className="login-page">
       <div className="login-glass-container glass-panel">
         <div className="login-header">
           <span className="material-symbols-outlined login-logo-icon">cloud</span>
           <h2 className="login-title">Neeta's Kitchen Login</h2>
-          <p className="login-subtitle">Select your portal to continue</p>
-        </div>
-        
-        <div className="role-selector">
-          <button 
-            type="button"
-            className={`role-btn ${role === 'customer' ? 'active' : ''}`}
-            onClick={() => setRole('customer')}
-          >
-            <span className="material-symbols-outlined">person</span>
-            Customer
-          </button>
-          <button 
-            type="button"
-            className={`role-btn ${role === 'restaurant_owner' ? 'active' : ''}`}
-            onClick={() => setRole('restaurant_owner')}
-          >
-            <span className="material-symbols-outlined">storefront</span>
-            Restaurant
-          </button>
-          <button 
-            type="button"
-            className={`role-btn ${role === 'delivery_partner' ? 'active' : ''}`}
-            onClick={() => setRole('delivery_partner')}
-          >
-            <span className="material-symbols-outlined">two_wheeler</span>
-            Driver
-          </button>
+          <p className="login-subtitle">Sign in to your customer account</p>
         </div>
 
         <form onSubmit={handleLogin} className="login-form">
@@ -110,6 +105,17 @@ const Login = () => {
             <span className="material-symbols-outlined">rocket_launch</span>
           </button>
         </form>
+
+        <div className="google-login-container" style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => {
+              console.log('Login Failed');
+              alert('Google login failed');
+            }}
+            useOneTap
+          />
+        </div>
 
         <div className="login-footer">
           <p>Not in orbit yet? <Link to="/register" className="register-link">Create an account</Link></p>
