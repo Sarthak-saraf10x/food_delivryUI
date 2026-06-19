@@ -5,12 +5,19 @@ import './LandingPage.css';
 const LandingPage = () => {
   const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
+  const[isLoggedIn,setIsLoggedIn]= useState(true);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  useEffect(()=>{
+    const tocken = localStorage.getItem("token")
+    if(tocken){
+      setIsLoggedIn(false);
+    }
+  },[])
 
   return (
     <div className="landing-page">
@@ -31,9 +38,12 @@ const LandingPage = () => {
           <button className="cart-btn">
             <span className="material-symbols-outlined">shopping_cart</span>
           </button>
+          {isLoggedIn &&(
           <button className="btn-primary" onClick={() => navigate('/login')}>
             Login
           </button>
+          )}
+          
         </div>
       </nav>
 
